@@ -149,7 +149,7 @@ def evaluate_history(history):
 
 
 # 予測結果表示
-def show_predict_result(net, loader, classes):
+def show_predict_result(net, loader, classes, device):
 
     # DataLoaderから最初の1セットを取得する
     for images, labels in loader:
