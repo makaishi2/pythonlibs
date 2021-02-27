@@ -16,7 +16,7 @@ from torchviz import make_dot
 import torchvision.transforms as transforms
 from torch.utils.data import Dataset, DataLoader
 import torchvision.datasets as datasets
-
+from tqdm.notebook import tqdm
 
 # 損失関数値計算用
 def eval_loss(loader, device, net, criterion):
@@ -53,7 +53,7 @@ def fit(net, optimizer, criterion, num_epochs, train_loader, test_loader, device
         net.train()
         count = 0
 
-        for inputs, labels in train_loader:
+        for inputs, labels in tqdm(train_loader):
             count += len(labels)
             inputs = inputs.to(device)
             labels = labels.to(device)
