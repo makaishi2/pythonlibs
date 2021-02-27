@@ -154,6 +154,7 @@ def show_predict_result(net, loader, classes, device):
     # DataLoaderから最初の1セットを取得する
     for images, labels in loader:
         break
+    n_size = min(len(images), 100)
 
     # デバイスの割り当て
     inputs = images.to(device)
@@ -166,7 +167,7 @@ def show_predict_result(net, loader, classes, device):
 
     # 最初の100個の表示
     plt.figure(figsize=(15, 20))
-    for i in range(100):
+    for i in range(n_size):
         ax = plt.subplot(10, 10, i + 1)
         image = images[i].numpy()
         label_name = classes[labels[i]]
