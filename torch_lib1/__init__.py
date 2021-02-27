@@ -168,7 +168,6 @@ def show_predict_result(net, loader, classes, device):
     # 最初の100個の表示
     plt.figure(figsize=(15, 20))
     for i in range(n_size):
-        print(i, n_size)
         ax = plt.subplot(10, 10, i + 1)
         image = images[i].numpy()
         label_name = classes[labels[i]]
