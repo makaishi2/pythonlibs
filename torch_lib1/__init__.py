@@ -201,6 +201,6 @@ def creare_pdf(plt):
     plt.savefig(fn)
     try:
         files.download(fn)
-    exception:
+    except:
         pass
-   pdf_ind = pdf_ind + 1
+    pdf_ind = pdf_ind + 1
