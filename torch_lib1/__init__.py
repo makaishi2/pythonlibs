@@ -183,3 +183,24 @@ def show_predict_result(net, loader, classes, device):
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)
     plt.show()
+    
+# PDF印刷用
+from IPython.display import set_matplotlib_formats
+set_matplotlib_formats('png', 'pdf')
+
+try:
+    from google.colab import files
+except:
+    pass
+
+pdf_ind = 1
+pdf_base = 'pdf-'
+
+def creare_pdf(plt):
+    fn = f'{pdf_base}-{pdf_ind:02d}.pdf'
+    plt.savefig(fn)
+    try:
+        files.download(fn)
+    exception:
+        pass
+   pdf_ind = pdf_ind + 1
