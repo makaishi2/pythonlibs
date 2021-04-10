@@ -184,23 +184,11 @@ def show_predict_result(net, loader, classes, device):
         ax.get_yaxis().set_visible(False)
     plt.show()
     
-# PDF印刷用
-from IPython.display import set_matplotlib_formats
-set_matplotlib_formats('png', 'pdf')
 
-try:
-    from google.colab import files
-except:
-    pass
+# PyTorch乱数固定用
 
-pdf_ind = 1
-pdf_base = 'pdf-'
+def torch_seed(seed=123):
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
 
-def creare_pdf(plt):
-    fn = f'{pdf_base}-{pdf_ind:02d}.pdf'
-    plt.savefig(fn)
-    try:
-        files.download(fn)
-    except:
-        pass
-    pdf_ind = pdf_ind + 1
