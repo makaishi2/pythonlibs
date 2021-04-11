@@ -181,6 +181,43 @@ def show_predict_result(net, loader, classes, device):
         ax.set_axis_off()
     plt.show()
 
+# イメージとラベル表示
+def show_images_labels(loader, classes, net, device):
+
+    # DataLoaderから最初の1セットを取得する
+    for images, labels in loader:
+        break
+    n_size = min(len(images), 50)
+
+    if net is not None:
+      # デバイスの割り当て
+      inputs = images.to(device)
+      labels = labels.to(device)
+
+      # 予測値の計算
+      outputs = net(inputs)
+      predicted = torch.max(outputs,1)[1]
+      #images = images.to('cpu')
+
+    # 最初の50個の表示
+    plt.figure(figsize=(20, 15))
+    for i in range(n_size):
+        ax = plt.subplot(5, 10, i + 1)
+        label_name = classes[labels[i]]
+        if net is not None:
+          predicted_name = classes[predicted[i]]
+          if label_name == predicted_name:
+            c = 'k'
+          else:
+            c = 'b'
+          ax.set_title(label_name + ':' + predicted_name, c=c, fontsize=20)
+        else:
+          ax.set_title(label_name, fontsize=20)
+        img = np.transpose(images[i].numpy(), (1, 2, 0))
+        plt.imshow((img + 1)/2)
+        ax.set_axis_off()
+    plt.show()
+
 
 # PyTorch乱数固定用
 
