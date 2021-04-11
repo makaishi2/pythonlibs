@@ -154,7 +154,7 @@ def show_predict_result(net, loader, classes, device):
     # DataLoaderから最初の1セットを取得する
     for images, labels in loader:
         break
-    n_size = min(len(images), 100)
+    n_size = min(len(images), 50)
 
     # デバイスの割り当て
     inputs = images.to(device)
@@ -165,25 +165,22 @@ def show_predict_result(net, loader, classes, device):
     predicted = torch.max(outputs,1)[1]
     images = images.to('cpu')
 
-    # 最初の100個の表示
-    plt.figure(figsize=(15, 20))
+    # 最初の50個の表示
+    plt.figure(figsize=(20, 15))
     for i in range(n_size):
-        ax = plt.subplot(10, 10, i + 1)
-        image = images[i].numpy()
+        ax = plt.subplot(5, 10, i + 1)
         label_name = classes[labels[i]]
         predicted_name = classes[predicted[i]]
-        img = np.transpose(image, (1, 2, 0))
-        img2 = (img + 1)/2 
-        plt.imshow(img2)
+        img = np.transpose(images[i].numpy(), (1, 2, 0))
+        plt.imshow((img + 1)/2)
         if label_name == predicted_name:
             c = 'k'
         else:
             c = 'b'
         ax.set_title(label_name + ':' + predicted_name, c=c)
-        ax.get_xaxis().set_visible(False)
-        ax.get_yaxis().set_visible(False)
+        ax.set_axis_off()
     plt.show()
-    
+
 
 # PyTorch乱数固定用
 
