@@ -61,26 +61,26 @@ def fit(net, optimizer, criterion, num_epochs, train_loader, test_loader, device
             # 勾配の初期化
             optimizer.zero_grad()
 
-            # 順伝搬計算
+            # 予測計算
             outputs = net(inputs)
 
-            # 誤差計算
+            # 損失計算
             loss = criterion(outputs, labels)
             train_loss += loss.item()
 
             # 勾配計算
             loss.backward()
 
-            # 重み変更
+            # 重み修正
             optimizer.step()
 
-            #予測値算出
+            # 予測値算出
             predicted = torch.max(outputs, 1)[1]
 
-            #正解件数算出
+            # 正解件数算出
             train_acc += (predicted == labels).sum()
 
-            # 訓練データに対する損失と精度の計算
+            # 損失と精度の計算
             avg_train_loss = train_loss / count
             avg_train_acc = train_acc / count
 
@@ -94,10 +94,10 @@ def fit(net, optimizer, criterion, num_epochs, train_loader, test_loader, device
             inputs = inputs.to(device)
             labels = labels.to(device)
 
-            # 順伝搬計算
+            # 予測計算
             outputs = net(inputs)
 
-            # 誤差計算
+            # 損失計算
             loss = criterion(outputs, labels)
             val_loss += loss.item()
 
@@ -107,7 +107,7 @@ def fit(net, optimizer, criterion, num_epochs, train_loader, test_loader, device
             #正解件数算出
             val_acc += (predicted == labels).sum()
 
-            # 検証データに対する損失と精度の計算
+            # 損失と精度の計算
             avg_val_loss = val_loss / count
             avg_val_acc = val_acc / count
     
@@ -120,20 +120,20 @@ def fit(net, optimizer, criterion, num_epochs, train_loader, test_loader, device
 
 # 学習ログ解析
 def evaluate_history(history):
-  #損失関数値と精度の確認
-  print(f'初期状態: 損失関数: {history[0,3]:.5f} 精度: {history[0,4]:.5f}') 
-  print(f'最終状態: 損失関数: {history[-1,3]:.5f} 精度: {history[-1,4]:.5f}' )
+  #損失と精度の確認
+  print(f'初期状態: 損失: {history[0,3]:.5f} 精度: {history[0,4]:.5f}') 
+  print(f'最終状態: 損失: {history[-1,3]:.5f} 精度: {history[-1,4]:.5f}' )
 
   num_epochs = len(history)
   unit = num_epochs / 10
 
-  # 学習曲線の表示 (損失関数)
+  # 学習曲線の表示 (損失)
   plt.plot(history[:,0], history[:,1], 'b', label='訓練')
   plt.plot(history[:,0], history[:,3], 'k', label='検証')
   plt.xticks(np.arange(0,num_epochs+1, unit))
   plt.xlabel('繰り返し回数')
-  plt.ylabel('損失関数値')
-  plt.title('学習曲線(損失関数)')
+  plt.ylabel('損失')
+  plt.title('学習曲線(損失)')
   plt.legend()
   plt.show()
 
@@ -160,7 +160,7 @@ def show_predict_result(net, loader, classes, device):
     inputs = images.to(device)
     labels = labels.to(device)
 
-    # 予測値の計算
+    # 予測計算
     outputs = net(inputs)
     predicted = torch.max(outputs,1)[1]
     images = images.to('cpu')
@@ -194,7 +194,7 @@ def show_images_labels(loader, classes, net, device):
       inputs = images.to(device)
       labels = labels.to(device)
 
-      # 予測値の計算
+      # 予測計算
       outputs = net(inputs)
       predicted = torch.max(outputs,1)[1]
       #images = images.to('cpu')
