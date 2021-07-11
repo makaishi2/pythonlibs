@@ -127,9 +127,13 @@ def evaluate_history(history):
   print(f'最終状態: 損失: {history[-1,3]:.5f} 精度: {history[-1,4]:.5f}' )
 
   num_epochs = len(history)
-  unit = num_epochs / 10
+  if num_epochs < 10:
+    unit = 1
+  else:
+    unit = num_epochs / 10
 
   # 学習曲線の表示 (損失)
+  plt.figure(figsize=(8,8))
   plt.plot(history[:,0], history[:,1], 'b', label='訓練')
   plt.plot(history[:,0], history[:,3], 'k', label='検証')
   plt.xticks(np.arange(0,num_epochs+1, unit))
@@ -140,6 +144,7 @@ def evaluate_history(history):
   plt.show()
 
   # 学習曲線の表示 (精度)
+  plt.figure(figsize=(8,8))
   plt.plot(history[:,0], history[:,2], 'b', label='訓練')
   plt.plot(history[:,0], history[:,4], 'k', label='検証')
   plt.xticks(np.arange(0,num_epochs+1,unit))
@@ -195,7 +200,6 @@ def show_images_labels(loader, classes, net, device):
         # 結果表示
         plt.imshow(img)
         ax.set_axis_off()
-    create_pdf(plt)
     plt.show()
 
 
