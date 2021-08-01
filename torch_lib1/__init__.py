@@ -133,7 +133,7 @@ def evaluate_history(history):
     unit = num_epochs / 10
 
   # 学習曲線の表示 (損失)
-  plt.figure(figsize=(8,8))
+  plt.figure(figsize=(9,8))
   plt.plot(history[:,0], history[:,1], 'b', label='訓練')
   plt.plot(history[:,0], history[:,3], 'k', label='検証')
   plt.xticks(np.arange(0,num_epochs+1, unit))
@@ -144,7 +144,7 @@ def evaluate_history(history):
   plt.show()
 
   # 学習曲線の表示 (精度)
-  plt.figure(figsize=(8,8))
+  plt.figure(figsize=(9,8))
   plt.plot(history[:,0], history[:,2], 'b', label='訓練')
   plt.plot(history[:,0], history[:,4], 'k', label='検証')
   plt.xticks(np.arange(0,num_epochs+1,unit))
@@ -208,6 +208,5 @@ def show_images_labels(loader, classes, net, device):
 def torch_seed(seed=123):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
-    torch.backends.cudnn.deterministic = True
-    torch.set_deterministic(True)
+    torch.use_deterministic_algorithms = True
 
