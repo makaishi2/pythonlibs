@@ -73,7 +73,7 @@ def fit(net, optimizer, criterion, num_epochs, train_loader, test_loader, device
             # 勾配計算
             loss.backward()
 
-            # 重み修正
+            # パラメータ修正
             optimizer.step()
 
             # 予測値算出
