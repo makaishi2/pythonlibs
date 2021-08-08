@@ -208,5 +208,5 @@ def show_images_labels(loader, classes, net, device):
 def torch_seed(seed=123):
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
     torch.use_deterministic_algorithms = True
-
