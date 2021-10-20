@@ -13,7 +13,6 @@ import torch
 from torch import tensor
 import torch.nn as nn
 import torch.optim as optim
-from torchinfo import summary
 from torchviz import make_dot
 import torchvision.transforms as transforms
 from torch.utils.data import Dataset, DataLoader
