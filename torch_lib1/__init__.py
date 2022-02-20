@@ -79,7 +79,7 @@ def fit(net, optimizer, criterion, num_epochs, train_loader, test_loader, device
             predicted = torch.max(outputs, 1)[1]
 
             # 正解件数算出
-            train_acc += (predicted == labels).sum()
+            train_acc += (predicted == labels).sum().item()
 
             # 損失と精度の計算
             avg_train_loss = train_loss / count
@@ -106,7 +106,7 @@ def fit(net, optimizer, criterion, num_epochs, train_loader, test_loader, device
             predicted = torch.max(outputs, 1)[1]
 
             #正解件数算出
-            val_acc += (predicted == labels).sum()
+            val_acc += (predicted == labels).sum().item()
 
             # 損失と精度の計算
             avg_val_loss = val_loss / count
